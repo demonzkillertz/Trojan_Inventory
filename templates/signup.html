@@ -1,0 +1,236 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signup Page</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h1>Signup Form</h1>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="signupform">
+        <label for="username">User Name:</label>
+        <input type="text" id="username" name="username" placeholder="user7645">
+      </div>
+      <div class="signupform">
+        <label for="firstname">First Name:<span class="required">*</span></label>
+        <input type="text" id="first_name" name="first_name" placeholder="Firstname">
+      </div>
+      <div class="signupform">
+        <label for="lastname">Last Name:<span class="required">*</span></label>
+        <input type="text" id="last_name" name="last_name" placeholder="Lastname" required>
+      </div>
+      <div class="signupform">
+        <label for="gender">Gender:<span class="required">*</span></label>
+        <div class="custom-select">
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="O">Other</option>
+            </select>
+        </div>
+    </div>
+    
+      <div class="signupform">
+        <label for="email">Email:<span class="required">*</span></label>
+        <input type="email" id="email" name="email" placeholder="demomail@gmail.com" required>
+      </div>
+      <div class="signupform">
+        <label for="phone">Phone Number:<span class="required">*</span></label>
+        <input type="text" id="phone_number" name="phone_number" required>
+      </div>
+      <div class="signupform">
+        <label for="province">Province:<span class="required">*</span></label>
+        <div class="custom-select">
+          <select id="province" name="province" onchange="populateDistricts()" required>
+            <option value="">Select Province</option>
+            <option value="Province 1">Province 1</option>
+            <option value="Province 2">Province 2</option>
+            <option value="Bagmati">Bagmati Province</option>
+            <option value="Gandaki">Gandaki Province</option>
+            <option value="Lumbini">Lumbini Province</option>
+            <option value="Karnali">Karnali Province</option>
+            <option value="Sudurpaschim">Sudurpashchim Province</option>
+          </select>
+        </div>
+      </div>
+      <div class="signupform">
+        <label for="district">District:<span class="required">*</span></label>
+        <div class="custom-select">
+            <select id="district" name="district" required>
+                <option value="">Select District</option>
+            </select>
+        </div>
+      </div>
+    
+      <div class="signupform">
+        <label for="tole">Tole:</label>
+        <input type="text" id="tole" name="tole" placeholder="Byasi" required>
+      </div>
+      <div class="signupform">
+        <label for="password">Password:<span class="required">*</span></label>
+        <div class="password-input-container">
+            <input type="password" spellcheck="false" id="password" name="password" required>
+            <i class='bx bx-hide toggle' id="passwordToggle"></i>
+        </div>
+    </div>
+    
+    <div class="signupform">
+        <label for="confirmpassword">Confirm Password:<span class="required">*</span></label>
+        <div class="password-input-container">
+            <input type="password" spellcheck="false" id="confirmpassword" name="confirmpassword" required>
+            <i class='bx bx-hide toggle' id="confirmPasswordToggle"></i>
+        </div>
+    </div>
+    
+      <div class="signupform">
+        <button type="submit">Signup</button>
+      </div>
+    <h4>Already have account?  <a href="/login/">LogIn</a></h4>
+    </form>
+  </div>
+
+  <!-- Vertical Icon Box -->
+  <div class="iconbox">
+    <div class="icon-facebook">
+      <div class="tooltip">Facebook</div>
+      <span><i class='bx bxl-facebook-circle'></i></span>
+    </div>
+    <div class="icon-twitter">
+      <div class="tooltip">Twitter</div>
+      <span><i class='bx bxl-twitter'></i></span>
+    </div>
+    <div class="icon-instagram">
+      <div class="tooltip">Instagram</div>
+      <span><i class='bx bxl-instagram-alt'></i></span>
+    </div>
+    <div class="icon-github">
+      <div class="tooltip">Github</div>
+      <span><i class='bx bxl-github'></i></span>
+    </div>
+    <div class="icon-youtube">
+      <div class="tooltip">Youtube</div>
+      <span><i class='bx bxl-youtube' ></i></span>
+    </div>
+    <div class="icon-help">
+      <div class="tooltip">Help</div>
+      <span><i class='bx bxs-help-circle' ></i></span>
+    </div>
+  </div>
+
+  <script>
+    function populateDistricts() {
+      var provinceSelect = document.getElementById("province");
+      var districtSelect = document.getElementById("district");
+
+      // Clear existing options
+      districtSelect.innerHTML = "";
+
+      // Add default option
+      var defaultOption = document.createElement("option");
+      defaultOption.text = "Select District";
+      districtSelect.add(defaultOption);
+
+      // Get selected province
+      var selectedProvince = provinceSelect.value;
+
+      // Add districts based on selected province
+      switch (selectedProvince) {
+        case "Province 1":
+          addDistrict("Bhojpur");
+          addDistrict("Dhankuta");
+          addDistrict("Ilam");
+          addDistrict("Jhapa");
+          addDistrict("Khotang");
+          break;
+        case "Province 2":
+          addDistrict("Saptari");
+          addDistrict("Siraha");
+          addDistrict("Dhanusha");
+          addDistrict("Mahottari");
+          addDistrict("Sarlahi");
+          break;
+        case "Bagmati":
+          addDistrict("Kathmandu");
+          addDistrict("Lalitpur");
+          addDistrict("Bhaktapur");
+          addDistrict("Kavrepalanchok");
+          addDistrict("Nuwakot");
+          break;
+        case "Gandaki":
+          addDistrict("Gorkha");
+          addDistrict("Lamjung");
+          addDistrict("Tanahun");
+          addDistrict("Manang");
+          addDistrict("Mustang");
+          break;
+        case "Lumbini":
+          addDistrict("Rupandehi");
+          addDistrict("Kapilvastu");
+          addDistrict("Nawalparasi");
+          addDistrict("Arghakhanchi");
+          addDistrict("Gulmi");
+          break;
+        case "Karnali":
+          addDistrict("Jumla");
+          addDistrict("Kalikot");
+          addDistrict("Surkhet");
+          addDistrict("Dailekh");
+          addDistrict("Jajarkot");
+          break;
+        case "Sudurpaschim":
+          addDistrict("Kailali");
+          addDistrict("Kanchanpur");
+          addDistrict("Dadeldhura");
+          addDistrict("Darchula");
+          addDistrict("Baitadi");
+          break;
+        default:
+          break;
+      }
+    }
+
+    function addDistrict(districtName) {
+      var districtSelect = document.getElementById("district");
+      var option = document.createElement("option");
+      option.text = districtName;
+      districtSelect.add(option);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const passwordToggle = document.getElementById("passwordToggle");
+    const confirmPasswordToggle = document.getElementById("confirmPasswordToggle");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmpassword");
+
+    passwordToggle.addEventListener("click", () => {
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.classList.replace("bx-hide", "bx-show");
+        } else {
+            passwordInput.type = "password";
+            passwordToggle.classList.replace("bx-show", "bx-hide");
+        }
+    });
+
+    confirmPasswordToggle.addEventListener("click", () => {
+        if (confirmPasswordInput.type === "password") {
+            confirmPasswordInput.type = "text";
+            confirmPasswordToggle.classList.replace("bx-hide", "bx-show");
+        } else {
+            confirmPasswordInput.type = "password";
+            confirmPasswordToggle.classList.replace("bx-show", "bx-hide");
+        }
+      });
+    });
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/favourite.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>favourite page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftbar">
+            <div class="header">
+                <div class="topic">
+                    <a href="/">Home</a>
+                    <a href="/cart/">Cart</a>
+                    <a href="/category/">Category</a>
+                    <a href="/favourite/">Favourites</a>
+                    <a href="/myaccount/">My Account</a>
+                    <a href="/logout/">Logout</a>
+                </div>
+                <div class="news"></div>
+            </div>
+            <div class="iconbox">
+                <div class="icon-facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class='bx bxl-facebook-circle'></i></span>
+                </div>
+                <div class="icon-twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class='bx bxl-twitter'></i></span>
+                </div>
+                <div class="icon-instagram">
+                    <div class="tooltip">Instagram</div>
+                    <span><i class='bx bxl-instagram-alt'></i></span>
+                </div>
+                <div class="icon-youtube">
+                    <div class="tooltip">Youtube</div>
+                    <span><i class='bx bxl-youtube'></i></span>
+                </div>
+                <div class="icon-help">
+                    <div class="tooltip">Help</div>
+                    <span><i class='bx bxs-help-circle'></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="rightbar">
+            <div class="heading">
+                <div class="info">
+                    <div class="logo">
+                        <img src="\templates\media\logo.jpg">
+                    </div>
+                    <!-- Heading Content -->
+                    <div class="headingbar">
+                        <h1>TROJAN INVENTORY</h1>
+                    </div>
+                </div>
+                <div class="searchbar">
+                    <form action="/search/">
+                        <input type="text" id="query" name="query" placeholder="Search...">
+                        <button type="submit"><i class='bx bx-search-alt'></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="contentbar" id="contentbar">
+                <h1 id="favourite">Favourites</h1>
+            {% for item in favourite%}
+            <div class="items">
+                <div class="tickbox">
+                </div>
+                <div class="image-section">
+                    <img src="{{ item.product.image1.url }}">
+                </div>
+                <div class="info-section">
+                    <div class="heading-section">
+                        <label for="product-1"><h1>{{ item.product.title }}</h1></label>            
+                    </div>
+                    <div class="quantity-section">
+                        <div class="title">
+                            <h4>Quantity:</h4>
+                        </div>
+                        <div class="buttons">
+                            <div class="inc-dcr">
+                                <button class="quantity-btn" onclick="decrement('product-1')">-</button>
+                                <input id="quantity-product-1" class="quantity-input" type="number" value="1" min="1">
+                                <button class="quantity-btn" onclick="increment('product-1')">+</button>
+                            </div>
+                            <h3>In stock:{{ item.product.available_quantity }}</h3>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <h1>Price:<span class="unit-price">Rs. {{ item.product.price }}</span></h1>
+                    </div>
+                </div>
+                <div class="button-section">
+                    <div class="add-to-cart">
+                        <button>Add To Cart</button>
+                    </div>
+                    <div class="rent">
+                        <button>Rent</button>
+                    </div>
+                </div>
+                <div class="delete-section">
+                    <div class="delete">
+                        <button><img src="/templates/media/delete.png"></button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+                <!-- Navigation Arrows -->
+                <div class="nav-arrows">
+                    
+                </div>
+            </div>
+        </div>
+<script>
+            function increment(productId) {
+            var input = document.getElementById('quantity-' + productId);
+            var value = parseInt(input.value, 10);
+            value = isNaN(value) ? 1 : value;
+            value++;
+            input.value = value;
+            updateCheckoutDetails(); // Update total price or any other relevant functionality
+        }
+
+        // Function to decrement quantity
+        function decrement(productId) {
+            var input = document.getElementById('quantity-' + productId);
+            var value = parseInt(input.value, 10);
+            value = isNaN(value) ? 1 : value;
+            value = value <= 1 ? 1 : value - 1;
+            input.value = value;
+            updateCheckoutDetails(); // Update total price or any other relevant functionality
+        }
+</script>
+</body>
+
+</html>

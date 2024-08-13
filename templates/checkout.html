@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/checkout.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Cart page</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftbar">
+            <div class="header">
+                <div class="topic">
+                    <a href="/">Home</a>
+                    <a href="/cart/">Cart</a>
+                    <a href="/category/">Category</a>
+                    <a href="/favourite/">Favourites</a>
+                    <a href="/myaccount/">My Account</a>
+                    <a href="/logout/">Logout</a>
+                </div>
+                <div class="news"></div>
+            </div>
+            <div class="iconbox">
+                <div class="icon-facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class='bx bxl-facebook-circle'></i></span>
+                </div>
+                <div class="icon-twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class='bx bxl-twitter'></i></span>
+                </div>
+                <div class="icon-instagram">
+                    <div class="tooltip">Instagram</div>
+                    <span><i class='bx bxl-instagram-alt'></i></span>
+                </div>
+                <div class="icon-youtube">
+                    <div class="tooltip">Youtube</div>
+                    <span><i class='bx bxl-youtube'></i></span>
+                </div>
+                <div class="icon-help">
+                    <div class="tooltip">Help</div>
+                    <span><i class='bx bxs-help-circle'></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="rightbar">
+            <div class="heading">
+                <div class="info">
+                    <div class="logo">
+                        <img src="\templates\media\logo.jpg">
+                    </div>
+                    <!-- Heading Content -->
+                    <div class="headingbar">
+                        <h1>TROJAN INVENTORY</h1>
+                    </div>
+                </div>
+                <div class="searchbar">
+                    <form action="/search/">
+                        <input type="text" id="query" name="query" placeholder="Search...">
+                        <button type="submit"><i class='bx bx-search-alt'></i></button>
+                    </form>
+                </div>   
+            </div>
+            <div class="rectangular-border">
+              <!-- <img src="Animestore _photo/posters/posters.jpg" alt="Image within border"> -->
+              <div class="field">
+                <div class="left-btn">
+                    <button><</button>
+                </div>
+                <div class="items">
+                    <div class="detail">
+                        {% for item in cart_items1 %}
+                        <div class="content">
+                            <div class="image">
+                                <img src="{{ item.product.image1.url }}">
+                            </div>
+                            <div class="heading">
+                                <h5>{{ item.product.title }}</h5>
+                            </div>
+                            <div class="quantity">
+                                <p>Quantity:<span>{{ item.quantity }}</span></p>
+                            </div>
+                            <div class="price">
+                                <p>Price<span class="unit-price">Rs.{{item.product.price }}</span></p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                       
+                    </div>
+                    <div class="deliverycharge">
+                        
+                    </div>
+                    <div class="deliverycharge">
+                        <h4 class="delivery-charge">Delivery Charge:<span id="delivery-charge">Rs. 50</span></h4>
+                    </div><br>
+                    <div class="cart-total" id="cart-total">
+                        <h3>Grand Total: <span id="total-price">Rs. 00000</span></h3>
+                    </div>
+                    <div class="rent-btn">
+                        <form method="POST" action="/order/">
+                        {% csrf_token %}
+                        <button type="submit">RENT</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="right-btn">
+                    <button>></button>
+                </div>
+              </div>
+
+            </div>
+        </div>
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const leftBtn = document.querySelector('.left-btn button');
+        const rightBtn = document.querySelector('.right-btn button');
+        const items = document.querySelector('.items');
+        let currentIndex = 0;
+        const numItems = document.querySelectorAll('.content').length;
+        const itemsToShow = 3;
+    
+        leftBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex -= itemsToShow;
+                if (currentIndex < 0) {
+                    currentIndex = 0;
+                }
+                showItems();
+            }
+        });
+    
+        rightBtn.addEventListener('click', () => {
+            if (currentIndex + itemsToShow < numItems) {
+                currentIndex += itemsToShow;
+                showItems();
+            }
+        });
+    
+        function showItems() {
+            const contentItems = document.querySelectorAll('.content');
+            contentItems.forEach((item, index) => {
+                if (index >= currentIndex && index < currentIndex + itemsToShow) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    
+        // Show initial items
+        showItems();
+    
+        // Function to calculate total cost and display it
+        function calculateTotal() {
+            var totalPrice = 0;
+            var items = document.querySelectorAll('.items .detail .content');
+    
+            // Iterate over each item
+            items.forEach(function(item) {
+                var quantity = parseInt(item.querySelector('.quantity p span').textContent);
+                var price = parseFloat(item.querySelector('.price .unit-price').textContent.replace('Rs.', ''));
+                var totalItemPrice = quantity * price;
+                totalPrice += totalItemPrice;
+            });
+    
+            // Add delivery charge
+            totalPrice += 50;
+    
+            // Display the grand total
+            document.getElementById('total-price').textContent = 'Rs. ' + totalPrice.toFixed(2);
+        }
+    
+        // Call calculateTotal function when the page loads
+        calculateTotal();
+    });
+</script>
+</body>
+</html>

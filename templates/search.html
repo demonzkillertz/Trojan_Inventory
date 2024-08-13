@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Home</title>
+</head>
+<body>
+    <div class="container">
+        <div class="leftbar">
+            <div class="header">
+                <div class="topic">
+                    <a href="/">Home</a>
+                    <a href="/cart/">Cart</a>
+                    <a href="/category/">Category</a>
+                    <a href="/favourite/">Favourites</a>
+                    <a href="/myaccount/">My Account</a>
+                    {% if user.is_authenticated %}
+                    <a href="/logout/">Logout</a>
+                    {% else %}
+                    <a href="/login/">Login</a>
+                    {% endif %}
+                </div>
+                <div class="news"></div>
+            </div>
+            <div class="iconbox">
+                <div class="icon-facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class='bx bxl-facebook-circle'></i></span>
+                </div>
+                <div class="icon-twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class='bx bxl-twitter'></i></span>
+                </div>
+                <div class="icon-instagram">
+                    <div class="tooltip">Instagram</div>
+                    <span><i class='bx bxl-instagram-alt'></i></span>
+                </div>
+                <div class="icon-youtube">
+                    <div class="tooltip">Youtube</div>
+                    <span><i class='bx bxl-youtube'></i></span>
+                </div>
+                <div class="icon-help">
+                    <div class="tooltip">Help</div>
+                    <span><i class='bx bxs-help-circle'></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="rightbar">
+            <div class="heading">
+              <div class="info">
+                <div class="logo">
+                  <img src="\templates\media\logo.jpg">
+                </div>
+                  <!-- Heading Content -->
+                  <div class="headingbar">
+                    <h1>TROJAN INVENTORY</h1>
+                  </div>
+              </div>
+              <div class="searchbar">
+                <form action="/search/">
+                <input type="text" id="query" name="query" placeholder="Search...">
+                <button type="submit"><i class='bx bx-search-alt'></i></button>
+                </form>
+              </div>
+            </div>
+            <div class="contentbar" id="contentbar">
+              <!-- First Set of 8 Items -->
+              {% for p in products %}
+              <div class="item">
+                  <img src="{{p.image1.url}}" alt="Item 1">
+                  <div class="info">
+                      <i class='bx bx-heart'></i> <!-- Heart icon added here -->
+                      <h3>{{p.title}}</h3>
+                      <p>Price: {{p.price}}</p>
+                      <div class="buttons">
+                        <form action="{% url 'add_to_cart' product_id=p.product_id %}">
+                          <button id="addtocart">Add to Cart</button>
+                        </form>
+                        <form action="{% url 'rent' product_id=p.product_id}">
+                          <button id="rent">Rent</button>
+                        </form>
+                      </div>
+                  </div>
+              </div>
+              {% endfor %}
+            </div>
+          <!-- Navigation Arrows -->
+          <div class="nav-arrows">
+              <button id="prevBtn" onclick="moveSlider(-1)"> See More</button>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      let slideIndex = 0;
+      const totalItems = 8; // Total number of items in each set
+      const items = document.getElementsByClassName("item");
+
+      function moveSlider(n) {
+          slideIndex += n * totalItems; // Move to the next/previous set
+
+          for (let i = 0; i < items.length; i++) {
+              if (slideIndex + i < 8 || slideIndex + i >= items.length) {
+                  items[i].style.display = "block";
+              } else {
+                  items[i].style.display = "none";
+              }
+            }
+      }
+
+      // Show the first set of items initially
+      moveSlider(0);
+  </script>
+</body>
+</html>

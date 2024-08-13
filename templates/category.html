@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/category.css' %}">
+    <script src="{% static 'js/category.js' %}"></script>
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Myaccount</title> 
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftbar">
+            <div class="header">
+                <div class="topic">
+                    <a href="/">Home</a>
+                    <a href="/cart/">Cart</a>
+                    <a href="/category/">Category</a>
+                    <a href="/favourite/">Favourites</a>
+                    <a href="/myaccount/">My Account</a>
+                    {% if user.is_authenticated %}
+                    <a href="/logout/">Logout</a>
+                    {% else %}
+                    <a href="/login/">Login</a>
+                    {% endif %}
+                </div>
+                <div class="news"></div>
+            </div>
+            <div class="iconbox">
+                <div class="icon-facebook">
+                    <div class="tooltip">Facebook</div>
+                    <span><i class='bx bxl-facebook-circle'></i></span>
+                </div>
+                <div class="icon-twitter">
+                    <div class="tooltip">Twitter</div>
+                    <span><i class='bx bxl-twitter'></i></span>
+                </div>
+                <div class="icon-instagram">
+                    <div class="tooltip">Instagram</div>
+                    <span><i class='bx bxl-instagram-alt'></i></span>
+                </div>
+                <div class="icon-youtube">
+                    <div class="tooltip">Youtube</div>
+                    <span><i class='bx bxl-youtube'></i></span>
+                </div>
+                <div class="icon-help">
+                    <div class="tooltip">Help</div>
+                    <span><i class='bx bxs-help-circle'></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="rightbar">
+            <div class="heading">
+                <div class="info">
+                    <div class="logo">
+                        <img src="\templates\media\logo.jpg">
+                    </div>
+                    <!-- Heading Content -->
+                    <div class="headingbar">
+                        <h1>TROJAN INVENTORY</h1>
+                    </div>
+                </div>
+                <div class="searchbar">
+                    <form action="/search/">
+                        <input type="text" id="query" name="query" placeholder="Search...">
+                        <button type="submit" id="search"><i class='bx bx-search-alt'></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="bodypart">
+                <div class="right-bar">
+                    <div class="rectangular-border">
+                        <div class="carousel">
+                            <!-- list item -->
+                            <div class="list">
+                                {% for rcate in cat %}
+                                <div class="item">
+                                    <img src="{{ rcate.image.url }}">
+                                    <div class="content">
+                                        <!-- <div class="author">LUNDEV</div>    -->
+                                        <div class="title">Category</div>
+                                        <div class="topic">{{ rcate.category.name}}</div>
+                                        <div class="buttons">
+                                            <a href="/category/{{rcate.category.name}}/">
+                                                <button type="button" id="{{ rcate.category.name }}"
+                                                    name="{{ rcate.category.name }}">SEE MORE</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- list thumnail -->
+                            <div class="thumbnail">
+                                {% for cate in cat %}
+                                <div class="item">
+                                    <img src="{{ cate.image.url }}">
+                                    <div class="content">
+                                        <div class="title">
+                                            {{cate.category.name}}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!-- next prev -->
+
+                            <div class="arrows">
+                                <button id="prev">
+                                    < </button>
+                                        <button id="next">></button>
+                            </div>
+                            <!-- time running -->
+                            <div class="time"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,387 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.leftbar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100vh; /* 100% viewport height */
+    background-color: rgba(194, 194, 255, 0.573);
+    /* padding: 20px; */
+}
+.leftbar .header {
+    /* margin-left: 0; */
+    height: 100%;
+    width: 100%;
+    /* background-color: pink; */
+}
+.header .topic{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 15px;
+    justify-content: space-evenly;
+}
+
+.topic a{
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.topic a:hover{
+    color: #2525e6;
+    text-decoration: underline;
+}
+
+.news{
+    height: 45%;
+    /* background-color: #fc0538; */
+}
+
+.leftbar .iconbox{
+    height: 40px;
+    width: 100%;
+    /* background-color: #007bff; */
+    display: flex;
+}
+
+.iconbox{
+
+    width: 100%;
+    /* background-color: palegoldenrod; */
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.iconbox .icon-facebook,
+.iconbox .icon-twitter,
+.iconbox .icon-instagram,
+.iconbox .icon-github,
+.iconbox .icon-youtube,
+.iconbox .icon-help{
+    text-align: center;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.iconbox .icon-facebook span,
+.iconbox .icon-twitter span,
+.iconbox .icon-instagram span,
+.iconbox .icon-github span,
+.iconbox .icon-youtube span,
+.iconbox .icon-help span{
+    margin-left: 10px;
+    display: block;
+    /* background-color: white; */
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-shadow: 0 6px 10px #0000003b;
+    transition: 0.4s cubic-bezier(0.68,-0.55/0.265,1.55);
+}
+.iconbox .icon-facebook span i,
+.iconbox .icon-twitter span i,
+.iconbox .icon-instagram span i,
+.iconbox .icon-github span i,
+.iconbox .icon-youtube span i,
+.iconbox .icon-help span i{
+    /* line-height: 60px; */
+    font-size: 25px;
+    padding-top: 3px;
+}
+
+.iconbox .icon-facebook .tooltip,
+.iconbox .icon-twitter .tooltip,
+.iconbox .icon-instagram .tooltip,
+.iconbox .icon-github .tooltip,
+.iconbox .icon-youtube .tooltip,
+.iconbox .icon-help .tooltip{
+    position: absolute;
+    top: 0;
+    color: white;
+    padding: 6px 14px;
+    font-size: 20px;
+    border-radius: 20px;
+    opacity: 0;
+    box-shadow: #0000002b 0px -23px 25px 0px inset,
+                #0000001a 0px -79px 40px 0px inset,
+                #0000006b 0px 10px 20px;
+    transition: 0.4s cubic-bezier(0.68, -0.55, -0.265, 1.55);
+}
+
+.iconbox .icon-facebook:hover .tooltip,
+.iconbox .icon-twitter:hover .tooltip,
+.iconbox .icon-instagram:hover .tooltip,
+.iconbox .icon-github:hover .tooltip,
+.iconbox .icon-youtube:hover .tooltip,
+.iconbox .icon-help:hover .tooltip{
+    top: -60px;
+    opacity: 1;
+    z-index: 1;
+}
+/* .iconbox .icon-facebook :hover span{
+    color: white;
+} */
+.iconbox .icon-facebook:hover span,
+.iconbox .icon-facebook:hover .tooltip{
+    text-shadow: 0px -1px 0px #00000066;
+    background-color: #3B5999;
+}
+
+.iconbox .icon-instagram:hover span,
+.iconbox .icon-instagram:hover .tooltip{
+    text-shadow: 0px -1px 0px #00000066;
+    background: -webkit-linear-gradient(bottom right, #ffc54e 0%,#fc0538 50%,#6650f5 100%);
+}
+.iconbox .icon-twitter:hover span,
+.iconbox .icon-twitter:hover .tooltip{
+    text-shadow: 0px -1px 0px #00000066;
+    background-color: #83d3f5;
+}
+.iconbox .icon-youtube:hover span,
+.iconbox .icon-youtube:hover .tooltip{
+    text-shadow: 0px -1px 0px #00000066;
+    background-color: #e81e46;
+}
+.iconbox .icon-help:hover span,
+.iconbox .icon-help:hover .tooltip{
+    text-shadow: 0px -1px 0px #00000066;
+    background-color: rgb(37, 37, 211);
+}
+
+
+.rightbar {
+    margin-left: 200px; /* Width of leftbar */
+    flex-grow: 1; /* Takes remaining space */
+    /* background-color: white; */
+}
+
+.heading {
+    z-index: 3;
+    position: sticky;
+    height: 130px;
+    top: 0;
+    background-color: white;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.heading .info{
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+.info .logo img{
+    height: 80px;
+    width: 80px;
+}
+.headingbar{
+    height: 80px;
+    /* display: flex;
+    justify-content: center; */
+}
+.headingbar h1{
+    margin-top: 5px;
+    font-family: Arial, sans-serif Times, serif;
+    font-size: 60px;
+    margin-left: 150px;
+    font-weight: 400;
+}
+.searchbar {
+    /* position: sticky; */
+    display: flex;
+    justify-content: end;
+    align-content: center;
+    /* align-items: center; */
+    padding-top: 10px;
+    margin-right: 20px;
+}
+
+.searchbar input {
+    width: 250px;
+    height: 30px;
+    /* padding: 8px; */
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    padding-left: 10px;
+}
+
+.searchbar button{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: #7070f5;
+    border: 1px solid black;
+    /* margin-top: 3px; */
+}
+.searchbar button i{
+    font-size: 15px;
+    color: white;
+    margin-top: 4px;
+    margin-left: 2px;
+}
+.searchbar button:hover{
+    background-color: rgba(0, 0, 0, 0.463);
+}
+.searchbar span:hover{
+    background-color: #2727f5;
+}
+
+.contentbar {
+    margin-top: 20px; /* Adjust as needed */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    padding-left: 10px;
+    z-index: 0;
+}
+
+.item {
+    position: relative;
+    width: calc(25% - 20px); /* Quarter width with margin */
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: rgba(0, 0, 0, 0.058);
+    display:none;
+}
+
+.item:hover{
+    background-color: #767fa115;
+}
+.item img {
+    width: 100%;
+    height: 280px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.info {
+    text-align: center;
+}
+.info i{
+    position: absolute; /* Position the heart icon */
+    top: 15px; /* Adjust to overlap with image */
+    right: 15px; /* Adjust to overlap with image */
+    background-color: white;
+    color: rgb(255, 140, 0);
+    font-size: 25px;
+    padding: 5px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+.info i:hover{
+    background-color: rgba(255, 166, 0, 0.581);
+    color: red;
+}
+.info h3{
+    text-align: left;
+    padding-left: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    word-spacing: 2px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+}
+
+.info h3:hover{
+    text-decoration: underline;
+}
+.info p{
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 4px;
+    color: rgba(240, 30, 30, 0.763);
+}
+
+.info .buttons{
+    display: flex;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 35px;
+    padding-left: 4px;
+    margin-top: 5px;
+    gap: 10px;
+    font-size: 15px;
+}
+.info .buttons #addtocart{
+    background-color: rgb(255, 188, 62);
+    width: 130px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.info .buttons #rent{
+    background-color: #0037ff97;
+    width: 75px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding-right: 4px;
+}
+.info .buttons #rent:hover{
+    background-color: #0037ffc9;
+}
+
+.info .buttons #addtocart:hover{
+    background-color: orange;
+}
+/* .info button {
+    margin-top: 6px;
+    color: #fff;
+    width: 150px;
+    height: 35px;
+}
+
+.info button:hover {
+    background-color: #0056b3;
+} */
+
+.nav-arrows {
+    margin-top: 20px;
+}
+
+.nav-arrows button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 550px;
+    margin-bottom: 20px;
+}
+
+.nav-arrows button:hover {
+    background-color: #0056b3;
+}
